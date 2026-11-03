@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tactile Restoration Wearable | Pranav Ponvinayagan</title>
+<meta name="description" content="Neuroloops Lab wearable hardware.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Pranav Ponvinayagan<span>.</span></a>
+    <nav class="main" aria-label="Main">
+      <input type="checkbox" id="navtoggle" aria-label="Toggle menu">
+      <label for="navtoggle" class="burger" aria-hidden="true">&#9776;</label>
+      <ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../projects.html" aria-current="page">Projects</a></li>
+<li><a href="../goals.html">Career Goals</a></li>
+<li><a href="../resume.html">Resume</a></li>
+<li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section>
+  <div class="wrap prose">
+    <span class="eyebrow">Georgia Tech &middot; Neuroloops Lab</span>
+    <h1>Tactile Restoration Wearable</h1>
+    <p class="meta">Undergraduate Researcher &middot; Sept. 2026 to present &middot; Hardware design and embedded firmware</p>
+
+    <h2>The Problem</h2>
+    <p>People who lose the sense of touch, whether from injury or amputation, lose a huge part of how they interact with the world. The goal of this project is a wearable system that reads the body's own signals and uses safe electrical stimulation of the skin to bring back a sense of touch.</p>
+
+    <h2>The Process</h2>
+    <p>I designed the system's hardware end to end, from part selection and schematics to 4-layer flex PCB layout with stiffened component islands, as a modular wearable:</p>
+    <figure><div class="frame"><svg class="diagram" viewBox="0 0 660 250" role="img" aria-label="Neuroloops system block diagram" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="30" width="180" height="62" rx="8"/><text x="110.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">8-ch EEG/EMG module</text><text class="small" x="110.0" y="73.0" text-anchor="middle">x2, clock-synchronized</text><rect class="hl" x="250" y="30" width="170" height="62" rx="8"/><text x="335.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Microcontroller</text><text class="small" x="335.0" y="73.0" text-anchor="middle">acquisition + control</text><rect class="box" x="470" y="30" width="170" height="62" rx="8"/><text x="555.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">SNN decoder</text><text class="small" x="555.0" y="73.0" text-anchor="middle">spiking neural network</text><rect class="hl" x="250" y="140" width="170" height="62" rx="8"/><text x="335.0" y="165.0" text-anchor="middle" font-size="14" font-weight="600">Isolated stim hub</text><text class="small" x="335.0" y="183.0" text-anchor="middle">~90V biphasic TENS</text><rect class="box" x="470" y="140" width="170" height="62" rx="8"/><text x="555.0" y="165.0" text-anchor="middle" font-size="14" font-weight="600">Hardware fault latch</text><text class="small" x="555.0" y="183.0" text-anchor="middle">OC / impedance / temp</text><rect class="box" x="20" y="140" width="180" height="62" rx="8"/><text x="110.0" y="165.0" text-anchor="middle" font-size="14" font-weight="600">Skin electrodes</text><text class="small" x="110.0" y="183.0" text-anchor="middle">evoke touch sensation</text><line class="line" x1="200" y1="61" x2="250" y2="61" marker-end="url(#ah)"/><line class="line" x1="420" y1="61" x2="470" y2="61" marker-end="url(#ah)"/><path class="line" d="M555 92 L555 116 L335 116 L335 140" marker-end="url(#ah)"/><line class="line" x1="250" y1="171" x2="200" y2="171" marker-end="url(#ah)"/><line class="line" x1="470" y1="171" x2="420" y2="171" marker-end="url(#ah)"/><text class="small" x="20" y="235">High-level architecture only (lab IP restrictions apply)</text></svg></div><figcaption>High-level system architecture.</figcaption></figure>
+    <ul>
+      <li><b>Acquisition modules:</b> interchangeable 8-channel EEG/EMG boards, each 65 &times; 38 mm, with two modules clock-synchronized for 16 channels.</li>
+      <li><b>Isolated stimulation hub:</b> a galvanically isolated, ~90V biphasic stimulator built from a boost converter and an H-bridge with hardware shoot-through interlock and current limiting.</li>
+      <li><b>Hardware fault protection:</b> a fault latch that cuts stimulation on overcurrent, out-of-range electrode impedance, over-temperature, or supply brownout, plus analog blanking that protects the recording front ends during each pulse, independent of firmware.</li>
+      <li><b>Firmware (in progress):</b> synchronized acquisition, isolated SPI/I2C control of the stimulation hub, live electrode-impedance measurement, and adaptive waveform generation.</li>
+    </ul>
+
+    <h2>The Outcome</h2>
+    <p>The hardware design is complete, and I'm now developing the firmware. The main thing this project taught me is designing for safety: every protection that matters lives in hardware, so a software bug can never put the user at risk.</p>
+    <p class="callout">Because this is active lab research, I can only share a high-level view of the design here.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>&copy; 2026 Pranav Ponvinayagan &middot; Electrical Engineering @ Georgia Tech</div>
+    <div>
+      <a href="mailto:pponvinayagan3@gatech.edu">Email</a>
+      <a href="https://www.linkedin.com/in/pranava-ponvinayagan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/YOUR-GITHUB-USERNAME" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
