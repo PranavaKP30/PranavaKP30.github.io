@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EMG Acquisition Module | Pranava Karthekeyan Ponvinayagan</title>
+<meta name="description" content="ECE 1100 Discovery Project: single-channel EMG acquisition module.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Pranava Karthekeyan Ponvinayagan<span>.</span></a>
+    <nav class="main" aria-label="Main">
+      <input type="checkbox" id="navtoggle" aria-label="Toggle menu">
+      <label for="navtoggle" class="burger" aria-hidden="true">&#9776;</label>
+      <ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../projects.html" aria-current="page">Projects</a></li>
+<li><a href="../goals.html">Career Goals</a></li>
+<li><a href="../resume.html">Resume</a></li>
+<li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section>
+  <div class="wrap prose">
+    <span class="eyebrow">Discovery Project Feature &middot; ECE 1100</span>
+    <h1>Single-Channel EMG Acquisition Module</h1>
+    <p class="meta">Personal project &middot; Fall 2026 &middot; Analog front end, PCB design, ESP32 firmware</p>
+
+    <figure><div class="frame"><img src="../assets/emg-board.jpg" alt="Photo of the assembled EMG acquisition module" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'todo',textContent:'Add photo: ../assets/emg-board.jpg'}))"></div><figcaption>The assembled EMG module.</figcaption></figure>
+
+    <h2>The Problem</h2>
+    <p>When a muscle contracts, it produces an electrical signal you can measure on the skin, but it's only a few millivolts at best and it's buried in noise from power lines, motion, and nearby electronics. Research-grade EMG systems handle this well, but they're expensive and tied to a desk. I wanted to understand what it actually takes to build a small, standalone module that captures a clean muscle signal and streams it to a computer in real time.</p>
+
+    <h2>The Process</h2>
+    <p>I broke the design into the same stages every biosignal system needs: protect the input, amplify the difference between two electrodes, filter out what you don't want, digitize it, and get the data out.</p>
+    <figure><div class="frame"><svg class="diagram" viewBox="0 0 1020 140" role="img" aria-label="EMG module block diagram" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="40" width="140" height="62" rx="8"/><text x="90.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Electrodes</text><text class="small" x="90.0" y="83.0" text-anchor="middle">surface EMG</text><line class="line" x1="160" y1="71.0" x2="188" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="188" y="40" width="140" height="62" rx="8"/><text x="258.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Input protection</text><text class="small" x="258.0" y="83.0" text-anchor="middle">clamp + RC</text><line class="line" x1="328" y1="71.0" x2="356" y2="71.0" marker-end="url(#ah)"/><rect class="hl" x="356" y="40" width="140" height="62" rx="8"/><text x="426.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Instrumentation amp</text><text class="small" x="426.0" y="83.0" text-anchor="middle">differential gain</text><line class="line" x1="496" y1="71.0" x2="524" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="524" y="40" width="140" height="62" rx="8"/><text x="594.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Filtering</text><text class="small" x="594.0" y="83.0" text-anchor="middle">band-limit</text><line class="line" x1="664" y1="71.0" x2="692" y2="71.0" marker-end="url(#ah)"/><rect class="hl" x="692" y="40" width="140" height="62" rx="8"/><text x="762.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">ESP32 firmware</text><text class="small" x="762.0" y="83.0" text-anchor="middle">sample + buffer</text><line class="line" x1="832" y1="71.0" x2="860" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="860" y="40" width="140" height="62" rx="8"/><text x="930.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Stream to PC</text><text class="small" x="930.0" y="83.0" text-anchor="middle">live plot</text><text class="small" x="20" y="125">Signal path of the single-channel EMG acquisition module</text></svg></div><figcaption>Block diagram of the signal path.</figcaption></figure>
+    <ul>
+      <li><b>Input protection:</b> series resistors and clamp diodes protect the front end from static and spikes, and RC filters knock down high-frequency noise before it reaches the amplifier.</li>
+      <li><b>Analog front end:</b> a differential amplifier rejects the noise both electrodes share and amplifies the muscle signal, then filtering band-limits it to the range EMG actually lives in. <span class="todo">EDIT: name the front-end chip or op-amp circuit, its gain, and filter cutoffs.</span></li>
+      <li><b>Firmware:</b> an ESP32 samples the signal at a fixed rate, buffers it, and streams it to a computer, where I plot it live.</li>
+      <li><b>PCB design:</b> I drew the schematic and laid out the board in KiCad, keeping the analog section away from digital and power circuitry and using a solid ground plane to keep noise down.</li>
+    </ul>
+    <p>The biggest lesson was how much layout matters. Where a trace runs, how ground currents return, and where decoupling capacitors sit can be the difference between a clean muscle burst and a screen full of 60 Hz noise.</p>
+
+    <h2>The Outcome</h2>
+    <div class="todo">EDIT before the Showcase: describe your results. Can you see clear bursts when you flex? What does the signal look like at rest vs. contraction? Add a screenshot of the live plot and a photo of your test setup.</div>
+    <p>This board is the simple, single-channel version of the 16-channel EEG/EMG acquisition modules I'm designing at the Neuroloops Lab, and a lot of the choices I tested here, from input protection to keeping analog and digital apart, carry straight into that system.</p>
+
+    <h2>What I'd do next</h2>
+    <p>Next, I'd add more channels, improve shielding and grounding for a lower noise floor, and use the signal to drive something physical, like a gripper that mirrors the motion of your hand.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>&copy; 2026 Pranava Karthekeyan Ponvinayagan &middot; Electrical Engineering @ Georgia Tech</div>
+    <div>
+      <a href="mailto:pponvinayagan3@gatech.edu">Email</a>
+      <a href="https://www.linkedin.com/in/pranava-ponvinayagan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/PranavaKP30" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

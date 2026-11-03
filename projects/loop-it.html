@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LOOP-IT Interface | Pranava Karthekeyan Ponvinayagan</title>
+<meta name="description" content="Closed-loop tACS interface on the LOOP-IT.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Pranava Karthekeyan Ponvinayagan<span>.</span></a>
+    <nav class="main" aria-label="Main">
+      <input type="checkbox" id="navtoggle" aria-label="Toggle menu">
+      <label for="navtoggle" class="burger" aria-hidden="true">&#9776;</label>
+      <ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../projects.html" aria-current="page">Projects</a></li>
+<li><a href="../goals.html">Career Goals</a></li>
+<li><a href="../resume.html">Resume</a></li>
+<li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section>
+  <div class="wrap prose">
+    <span class="eyebrow">Northeastern University &middot; Movement Neuroscience Lab</span>
+    <h1>LOOP-IT Closed-Loop Interface</h1>
+    <p class="meta">Co-lead &middot; Summer 2026 &middot; Embedded firmware, state machines, real-time signal processing</p>
+
+    <h2>The Problem</h2>
+    <p>Transcranial alternating current stimulation (tACS) nudges brain rhythms, but it works best when it's timed to the rhythm that's already there. The lab's neuroConn LOOP-IT stimulator can do closed-loop stimulation, but only if someone writes the onboard logic that reads EEG, finds the right moment, and fires. That's what I was brought in to build, co-leading the work with a graduate student.</p>
+
+    <h2>The Process</h2>
+    <figure><div class="frame"><svg class="diagram" viewBox="0 0 800 265" role="img" aria-label="LOOP-IT closed-loop state machine diagram" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="130" width="130" height="62" rx="8"/><text x="85.0" y="155.0" text-anchor="middle" font-size="14" font-weight="600">Idle</text><text class="small" x="85.0" y="173.0" text-anchor="middle">armed</text><line class="line" x1="150" y1="161" x2="176" y2="161" marker-end="url(#ah)"/><rect class="box" x="176" y="130" width="130" height="62" rx="8"/><text x="241.0" y="155.0" text-anchor="middle" font-size="14" font-weight="600">Pre-stim</text><text class="small" x="241.0" y="173.0" text-anchor="middle">baseline</text><line class="line" x1="306" y1="161" x2="332" y2="161" marker-end="url(#ah)"/><rect class="hl" x="332" y="130" width="130" height="62" rx="8"/><text x="397.0" y="155.0" text-anchor="middle" font-size="14" font-weight="600">Stimulating</text><text class="small" x="397.0" y="173.0" text-anchor="middle">phase-locked tACS</text><line class="line" x1="462" y1="161" x2="488" y2="161" marker-end="url(#ah)"/><rect class="box" x="488" y="130" width="130" height="62" rx="8"/><text x="553.0" y="155.0" text-anchor="middle" font-size="14" font-weight="600">Post-stim</text><text class="small" x="553.0" y="173.0" text-anchor="middle">record</text><line class="line" x1="618" y1="161" x2="644" y2="161" marker-end="url(#ah)"/><rect class="box" x="644" y="130" width="130" height="62" rx="8"/><text x="709.0" y="155.0" text-anchor="middle" font-size="14" font-weight="600">ITI</text><text class="small" x="709.0" y="173.0" text-anchor="middle">inter-trial</text><path class="line" d="M709 192 L709 225 L85 225 L85 192" marker-end="url(#ah)"/><rect class="hl" x="250" y="20" width="220" height="62" rx="8"/><text x="360.0" y="45.0" text-anchor="middle" font-size="14" font-weight="600">Live EEG</text><text class="small" x="360.0" y="63.0" text-anchor="middle">iAPF detection + phase tracking</text><path class="line" d="M360 82 L360 106 L397 106 L397 130" marker-end="url(#ah)"/><text class="small" x="20" y="252">Onboard driver state machine running on the LOOP-IT (RALGOL firmware)</text></svg></div><figcaption>The onboard state machine and the EEG features that drive it.</figcaption></figure>
+    <ul>
+      <li><b>Onboard driver from scratch:</b> I wrote a full driver in the device's RALGOL firmware environment, with a structured interface block for passing parameters and status between the device and the lab's software.</li>
+      <li><b>State machine:</b> each trial moves through idle, pre-stimulation, stimulation, post-stimulation, and inter-trial states, so timing is predictable and every trial runs the same way.</li>
+      <li><b>Real-time EEG features:</b> the driver detects each subject's individual alpha peak frequency and tracks the phase of their alpha rhythm, so stimulation can lock onto it.</li>
+      <li><b>Hardware cycle generator:</b> I refactored the waveform generator and fixed unit-scaling bugs (frequency in mHz, current in µA) so the numbers the researcher types in are exactly what the hardware delivers.</li>
+    </ul>
+
+    <h2>The Outcome</h2>
+    <p>The driver and state machine are complete, and the remaining work is confirming the physical channel mapping and trigger gating on the device. The biggest takeaway was how unforgiving embedded work on a medical device is: a unit off by a factor of 1000 isn't a bug you can afford to find during an experiment.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>&copy; 2026 Pranava Karthekeyan Ponvinayagan &middot; Electrical Engineering @ Georgia Tech</div>
+    <div>
+      <a href="mailto:pponvinayagan3@gatech.edu">Email</a>
+      <a href="https://www.linkedin.com/in/pranava-ponvinayagan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/PranavaKP30" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

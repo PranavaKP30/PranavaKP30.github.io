@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nool | Pranava Karthekeyan Ponvinayagan</title>
+<meta name="description" content="Nool: ML inventory platform for small shops.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Pranava Karthekeyan Ponvinayagan<span>.</span></a>
+    <nav class="main" aria-label="Main">
+      <input type="checkbox" id="navtoggle" aria-label="Toggle menu">
+      <label for="navtoggle" class="burger" aria-hidden="true">&#9776;</label>
+      <ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../projects.html" aria-current="page">Projects</a></li>
+<li><a href="../goals.html">Career Goals</a></li>
+<li><a href="../resume.html">Resume</a></li>
+<li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section>
+  <div class="wrap prose">
+    <span class="eyebrow">Personal project</span>
+    <h1>Nool</h1>
+    <p class="meta">Personal project &middot; Machine learning, forecasting, full-stack app</p>
+
+    <h2>The Problem</h2>
+    <p>Nool started with my grandfather's shop in Tamil Nadu. Like a lot of small shopkeepers, he tracked stock mostly from memory: what's selling, what's running low, and which suppliers actually deliver on time. When an item ran out, there was no easy way to know whether ordering it today meant it would be back on the shelf in two days or two weeks.</p>
+
+    <h2>The Process</h2>
+    <figure><div class="frame"><svg class="diagram" viewBox="0 0 910 140" role="img" aria-label="Nool system diagram" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="40" width="150" height="62" rx="8"/><text x="95.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Sales + stock</text><text class="small" x="95.0" y="83.0" text-anchor="middle">shop records</text><line class="line" x1="170" y1="71.0" x2="200" y2="71.0" marker-end="url(#ah)"/><rect class="hl" x="200" y="40" width="150" height="62" rx="8"/><text x="275.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Demand model</text><text class="small" x="275.0" y="83.0" text-anchor="middle">ML forecast</text><line class="line" x1="350" y1="71.0" x2="380" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="380" y="40" width="150" height="62" rx="8"/><text x="455.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Inventory planner</text><text class="small" x="455.0" y="83.0" text-anchor="middle">what to reorder</text><line class="line" x1="530" y1="71.0" x2="560" y2="71.0" marker-end="url(#ah)"/><rect class="hl" x="560" y="40" width="150" height="62" rx="8"/><text x="635.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Supplier tracker</text><text class="small" x="635.0" y="83.0" text-anchor="middle">reliability + lead time</text><line class="line" x1="710" y1="71.0" x2="740" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="740" y="40" width="150" height="62" rx="8"/><text x="815.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Shopkeeper view</text><text class="small" x="815.0" y="83.0" text-anchor="middle">restock dates</text><text class="small" x="20" y="125">Nool data flow: shop data to forecasts to restock decisions</text></svg></div><figcaption>How data moves through Nool.</figcaption></figure>
+    <ul>
+      <li><b>Demand forecasting:</b> a machine learning model learns each product's sales pattern and predicts what the shop will need.</li>
+      <li><b>Inventory tracking:</b> the app keeps a live picture of stock and flags what should be reordered before it runs out.</li>
+      <li><b>Supplier reliability:</b> Nool tracks how each supplier has actually performed, so the shopkeeper knows who to trust and how long a restock will really take.</li>
+      <li><b>Restock estimates:</b> combining demand and supplier history, it answers the question shopkeepers really care about: if I order now, when will it be back in stock?</li>
+    </ul>
+    <div class="todo">EDIT: add your tech stack (language, ML model, database, app framework) and what's built vs. planned.</div>
+
+    <h2>The Outcome</h2>
+    <p>Nool taught me that good engineering starts with the person who's going to use it. A forecast is only useful if a busy shopkeeper can read it at a glance, and that lesson about designing for real users carries into the hardware I build now.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>&copy; 2026 Pranava Karthekeyan Ponvinayagan &middot; Electrical Engineering @ Georgia Tech</div>
+    <div>
+      <a href="mailto:pponvinayagan3@gatech.edu">Email</a>
+      <a href="https://www.linkedin.com/in/pranava-ponvinayagan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/PranavaKP30" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
