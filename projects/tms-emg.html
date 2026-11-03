@@ -37,17 +37,17 @@
     <p class="meta">Research Intern &middot; April to May 2026 &middot; C++, device drivers, serial and TCP</p>
 
     <h2>The Problem</h2>
-    <p>The lab's TMS experiments ran on a setup that wasn't real-time, which made it hard to control stimulation precisely and record muscle responses in sync.</p>
+    <p>The lab's TMS experiments ran on a setup that wasn't real-time, so it was hard to control stimulation precisely and record the muscle response in sync with it.</p>
 
     <h2>The Process</h2>
     <figure><div class="frame"><svg class="diagram" viewBox="0 0 690 250" role="img" aria-label="TMS-EMG acquisition and control system diagram" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="30" width="170" height="62" rx="8"/><text x="105.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Delsys Trigno</text><text class="small" x="105.0" y="73.0" text-anchor="middle">16-ch wireless EMG</text><rect class="hl" x="240" y="30" width="190" height="62" rx="8"/><text x="335.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Listener thread</text><text class="small" x="335.0" y="73.0" text-anchor="middle">dual-socket TCP</text><rect class="box" x="480" y="30" width="190" height="62" rx="8"/><text x="575.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Real-time loop</text><text class="small" x="575.0" y="73.0" text-anchor="middle">RTXI on Xenomai</text><rect class="hl" x="240" y="140" width="190" height="62" rx="8"/><text x="335.0" y="165.0" text-anchor="middle" font-size="14" font-weight="600">Serial plugin</text><text class="small" x="335.0" y="183.0" text-anchor="middle">state machine + checksum</text><rect class="box" x="20" y="140" width="170" height="62" rx="8"/><text x="105.0" y="165.0" text-anchor="middle" font-size="14" font-weight="600">Magstim BiStim²</text><text class="small" x="105.0" y="183.0" text-anchor="middle">paired-pulse TMS</text><line class="line" x1="190" y1="61" x2="240" y2="61" marker-end="url(#ah)"/><line class="line" x1="430" y1="61" x2="480" y2="61" marker-end="url(#ah)"/><path class="line" d="M575 92 L575 171 L430 171" marker-end="url(#ah)"/><line class="line" x1="240" y1="171" x2="190" y2="171" marker-end="url(#ah)"/><text class="small" x="20" y="235">EMG streams in through a wait-free buffer; TMS is fired programmatically over serial</text></svg></div><figcaption>Data and control paths.</figcaption></figure>
     <ul>
-      <li><b>TMS driver:</b> I designed a serial communication plugin for a Magstim BiStim&sup2; paired-pulse TMS device around a state machine with a checksummed command protocol, and verified it with loopback testing before connecting real hardware.</li>
-      <li><b>EMG driver:</b> I built a 16-channel acquisition module for a Delsys Trigno wireless EMG system using a dual-socket TCP design and a wait-free listener thread, so data streams in without ever stalling the real-time loop.</li>
+      <li><b>TMS driver:</b> I wrote a serial driver for a Magstim BiStim&sup2; paired-pulse TMS device. It's built around a state machine with a checksummed command protocol, and I tested it with loopback before hooking it up to the real device.</li>
+      <li><b>EMG driver:</b> I built a 16-channel acquisition module for a Delsys Trigno wireless EMG system. It uses two TCP sockets and a separate listener thread, so incoming data never stalls the real-time loop.</li>
     </ul>
 
     <h2>The Outcome</h2>
-    <p>Both drivers run inside the lab's real-time Linux pipeline, giving researchers programmatic TMS control and lag-free EMG recording for live human experiments. They later became building blocks for the closed-loop platform I built that summer.</p>
+    <p>Both drivers now run in the lab's real-time Linux setup, so researchers can fire TMS from code and record EMG without lag during live experiments. They also ended up being the base for the closed-loop platform I built that summer.</p>
   </div>
 </section>
 

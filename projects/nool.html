@@ -37,20 +37,20 @@
     <p class="meta">Personal project &middot; Machine learning, forecasting, full-stack app</p>
 
     <h2>The Problem</h2>
-    <p>Nool started with my grandfather's shop in Tamil Nadu. Like a lot of small shopkeepers, he tracked stock mostly from memory: what's selling, what's running low, and which suppliers actually deliver on time. When an item ran out, there was no easy way to know whether ordering it today meant it would be back on the shelf in two days or two weeks.</p>
+    <p>Nool came from my grandfather's shop in Tamil Nadu. Like a lot of small shop owners, he kept track of stock mostly in his head: what's selling, what's running low, and which suppliers actually show up on time. When something ran out, there wasn't a good way to know if ordering it today meant it'd be back in two days or two weeks.</p>
 
     <h2>The Process</h2>
     <figure><div class="frame"><svg class="diagram" viewBox="0 0 910 140" role="img" aria-label="Nool system diagram" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="40" width="150" height="62" rx="8"/><text x="95.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Sales + stock</text><text class="small" x="95.0" y="83.0" text-anchor="middle">shop records</text><line class="line" x1="170" y1="71.0" x2="200" y2="71.0" marker-end="url(#ah)"/><rect class="hl" x="200" y="40" width="150" height="62" rx="8"/><text x="275.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Demand model</text><text class="small" x="275.0" y="83.0" text-anchor="middle">ML forecast</text><line class="line" x1="350" y1="71.0" x2="380" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="380" y="40" width="150" height="62" rx="8"/><text x="455.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Inventory planner</text><text class="small" x="455.0" y="83.0" text-anchor="middle">what to reorder</text><line class="line" x1="530" y1="71.0" x2="560" y2="71.0" marker-end="url(#ah)"/><rect class="hl" x="560" y="40" width="150" height="62" rx="8"/><text x="635.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Supplier tracker</text><text class="small" x="635.0" y="83.0" text-anchor="middle">reliability + lead time</text><line class="line" x1="710" y1="71.0" x2="740" y2="71.0" marker-end="url(#ah)"/><rect class="box" x="740" y="40" width="150" height="62" rx="8"/><text x="815.0" y="65.0" text-anchor="middle" font-size="14" font-weight="600">Shopkeeper view</text><text class="small" x="815.0" y="83.0" text-anchor="middle">restock dates</text><text class="small" x="20" y="125">Nool data flow: shop data to forecasts to restock decisions</text></svg></div><figcaption>How data moves through Nool.</figcaption></figure>
     <ul>
-      <li><b>Demand forecasting:</b> a machine learning model learns each product's sales pattern and predicts what the shop will need.</li>
-      <li><b>Inventory tracking:</b> the app keeps a live picture of stock and flags what should be reordered before it runs out.</li>
-      <li><b>Supplier reliability:</b> Nool tracks how each supplier has actually performed, so the shopkeeper knows who to trust and how long a restock will really take.</li>
-      <li><b>Restock estimates:</b> combining demand and supplier history, it answers the question shopkeepers really care about: if I order now, when will it be back in stock?</li>
+      <li><b>Demand forecasting:</b> an ML model learns each product's sales pattern and predicts what the shop will need.</li>
+      <li><b>Inventory:</b> the app tracks current stock and flags what should be reordered before it runs out.</li>
+      <li><b>Supplier tracking:</b> Nool keeps a record of how each supplier has actually performed, so the owner knows who's reliable and how long a restock really takes.</li>
+      <li><b>Restock estimates:</b> putting demand and supplier history together, it tells the owner when an item will be back in stock if they order now.</li>
     </ul>
     <div class="todo">EDIT: add your tech stack (language, ML model, database, app framework) and what's built vs. planned.</div>
 
     <h2>The Outcome</h2>
-    <p>Nool taught me that good engineering starts with the person who's going to use it. A forecast is only useful if a busy shopkeeper can read it at a glance, and that lesson about designing for real users carries into the hardware I build now.</p>
+    <p>Nool taught me to think about who's actually using what I build. A forecast doesn't help if a busy shop owner can't read it in a few seconds, and I try to keep that in mind with hardware too.</p>
   </div>
 </section>
 
