@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neuromorphic Tactile Restoration Wearable | Pranava Karthekeyan Ponvinayagan</title>
+<meta name="description" content="Neuromorphic Tactile Restoration Wearable: closed-loop EEG/EMG acquisition and TENS stimulation hardware, Neuroloops Lab at Georgia Tech.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Pranava Karthekeyan Ponvinayagan<span>.</span></a>
+    <nav class="main" aria-label="Main">
+      <input type="checkbox" id="navtoggle" aria-label="Toggle menu">
+      <label for="navtoggle" class="burger" aria-hidden="true">&#9776;</label>
+      <ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../projects.html" aria-current="page">Projects</a></li>
+<li><a href="../goals.html">Career Goals</a></li>
+<li><a href="../resume.html">Resume</a></li>
+<li><a href="../contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+
+<section>
+  <div class="wrap prose">
+    <span class="eyebrow">Neuroloops Lab &middot; Georgia Tech</span>
+    <h1>Neuromorphic Tactile Restoration Wearable</h1>
+    <p class="meta">Undergraduate Researcher &middot; Sept. 2026 to present &middot; Hardware design and embedded firmware</p>
+    <p class="lead">A closed-loop hybrid BCI wearable that restores the sense of touch by recording EEG and EMG, decoding them with a spiking neural network, and modulating electrical stimulation of the skin to evoke tactile sensation.</p>
+
+    <h2>The Problem</h2>
+    <p>People who lose feeling in their hands from nerve injury or amputation lose the feedback they rely on to grip, hold, and handle objects. Electrical stimulation of the skin's mechanoreceptors can activate peripheral nerves and create a sense of touch, but most stimulators deliver fixed patterns and have no way of responding to what the body is doing. The goal of this project is a wearable that closes that loop: it reads the user's neural and muscle activity and adjusts stimulation in real time.</p>
+
+    <h2>The Solution</h2>
+    <p>I own the hardware for the system end to end, from part selection and schematics through 4-layer flex PCB layout and the embedded firmware. The spiking neural network (SNN) and the experiment platform used to run sessions are developed by other members of the lab.</p>
+
+    <figure><div class="frame"><svg class="diagram" viewBox="0 0 760 290" role="img" aria-label="Current system architecture" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs>
+      <rect class="box" x="20" y="40" width="190" height="62" rx="8"/><text x="115" y="65" text-anchor="middle" font-size="14" font-weight="600">2x 8-ch ExG modules</text><text class="small" x="115" y="83" text-anchor="middle">ADS1299, EEG/EMG</text>
+      <rect class="hl" x="285" y="40" width="190" height="62" rx="8"/><text x="380" y="65" text-anchor="middle" font-size="14" font-weight="600">MCU + firmware</text><text class="small" x="380" y="83" text-anchor="middle">acquisition + control</text>
+      <rect class="hl" x="550" y="40" width="190" height="62" rx="8"/><text x="645" y="65" text-anchor="middle" font-size="14" font-weight="600">Isolated stim hub</text><text class="small" x="645" y="83" text-anchor="middle">~90V TENS + fault latch</text>
+      <rect class="box" x="550" y="170" width="190" height="62" rx="8"/><text x="645" y="195" text-anchor="middle" font-size="14" font-weight="600">Skin electrodes</text><text class="small" x="645" y="213" text-anchor="middle">evoke tactile sensation</text>
+      <rect class="box" x="20" y="170" width="190" height="62" rx="8"/><text x="115" y="195" text-anchor="middle" font-size="14" font-weight="600">SNN (offline)</text><text class="small" x="115" y="213" text-anchor="middle">paradigms loaded manually</text>
+      <rect class="box" x="285" y="170" width="190" height="62" rx="8"/><text x="380" y="195" text-anchor="middle" font-size="14" font-weight="600">Experiment platform</text><text class="small" x="380" y="213" text-anchor="middle">session control</text>
+      <line class="line" x1="210" y1="71" x2="285" y2="71" marker-end="url(#ah)"/>
+      <line class="line" x1="475" y1="71" x2="550" y2="71" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <line class="line" x1="645" y1="102" x2="645" y2="170" marker-end="url(#ah)"/>
+      <path class="line" d="M115 170 L115 136 L330 136 L330 102" marker-end="url(#ah)"/>
+      <line class="line" x1="420" y1="170" x2="420" y2="102" marker-start="url(#ah)" marker-end="url(#ah)"/>
+      <text class="small" x="20" y="268">Current system. High-level architecture only (lab IP restrictions apply).</text>
+    </svg></div><figcaption>The current system: acquisition, control, and stimulation hardware, with the lab's SNN running separately.</figcaption></figure>
+
+    <p>The system is split into modules so each piece can be designed, tested, and swapped independently:</p>
+    <ul>
+      <li><b>Modular flex design:</b> 4-layer flex PCBs with stiffened component islands so the system can sit on the forearm, connected by custom flex FPC interconnects.</li>
+      <li><b>Acquisition:</b> interchangeable 8-channel ADS1299 modules, each 65 &times; 38 mm, configurable for EEG or EMG. Two modules run off a shared clock for 16 synchronized channels.</li>
+      <li><b>Stimulation:</b> a galvanically isolated, ~90V biphasic TENS stimulator built from a boost converter and an H-bridge, with a hardware shoot-through interlock and current limiting.</li>
+      <li><b>Safety in hardware:</b> a fault latch cuts stimulation on overcurrent, out-of-range electrode impedance, over-temperature, or supply brownout, and stimulation-triggered analog switches disconnect the EEG/EMG front ends during each pulse. Both work independently of firmware.</li>
+      <li><b>Firmware (in development):</b> synchronized 16-channel acquisition and real-time signal processing, isolated SPI/I2C control of the stimulation hub, electrode impedance calculated from live current and voltage sensing, impedance-adaptive biphasic waveforms, and fault monitoring and recovery.</li>
+    </ul>
+    <p>Right now, the SNN runs separately from the wearable, and its stimulation paradigms are loaded into the firmware manually. The experiment platform communicates with the firmware to run and control each session.</p>
+
+    <h2>Impact and Status</h2>
+    <p>The hardware design is complete, and the firmware is in development. Once finished, the wearable gives the lab a platform for studying closed-loop sensory restoration outside of a traditional benchtop setup, with recording and stimulation on the same body-worn system.</p>
+    <p>The biggest lesson from this project has been to put safety-critical behavior in hardware. Stimulation and microvolt-level recording sit on the same system, so protection can't depend on firmware running correctly. If the microcontroller crashes, the user still has to be safe.</p>
+
+    <h2>Future Plans</h2>
+    <p>The next step is moving the SNN onto the wearable itself. I'm working toward a custom neuromorphic processor that runs the SNN on an FPGA, including the RTL design and board bring-up. With decoding running on the device in real time, the firmware can handle closed-loop, EEG/EMG-modulated TENS stimulation directly, without manually loading paradigms.</p>
+
+    <figure><div class="frame"><svg class="diagram" viewBox="0 0 760 300" role="img" aria-label="Planned system architecture with neuromorphic processor" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs>
+      <rect class="box" x="20" y="40" width="190" height="62" rx="8"/><text x="115" y="65" text-anchor="middle" font-size="14" font-weight="600">2x 8-ch ExG modules</text><text class="small" x="115" y="83" text-anchor="middle">ADS1299, EEG/EMG</text>
+      <rect class="hl" x="270" y="30" width="220" height="82" rx="8"/><text x="380" y="58" text-anchor="middle" font-size="14" font-weight="600">MCU + neuromorphic</text><text x="380" y="76" text-anchor="middle" font-size="14" font-weight="600">processor</text><text class="small" x="380" y="96" text-anchor="middle">SNN on FPGA, on-device</text>
+      <rect class="hl" x="550" y="40" width="190" height="62" rx="8"/><text x="645" y="65" text-anchor="middle" font-size="14" font-weight="600">Isolated stim hub</text><text class="small" x="645" y="83" text-anchor="middle">~90V TENS + fault latch</text>
+      <rect class="box" x="550" y="170" width="190" height="62" rx="8"/><text x="645" y="195" text-anchor="middle" font-size="14" font-weight="600">Skin electrodes</text><text class="small" x="645" y="213" text-anchor="middle">evoke tactile sensation</text>
+      <rect class="box" x="285" y="170" width="190" height="62" rx="8"/><text x="380" y="195" text-anchor="middle" font-size="14" font-weight="600">Experiment platform</text><text class="small" x="380" y="213" text-anchor="middle">session control</text>
+      <line class="line" x1="210" y1="71" x2="270" y2="71" marker-end="url(#ah2)"/>
+      <line class="line" x1="490" y1="71" x2="550" y2="71" marker-start="url(#ah2)" marker-end="url(#ah2)"/>
+      <line class="line" x1="645" y1="102" x2="645" y2="170" marker-end="url(#ah2)"/>
+      <line class="line" x1="380" y1="170" x2="380" y2="112" marker-start="url(#ah2)" marker-end="url(#ah2)"/>
+      <path class="line" d="M645 232 L645 254 L115 254 L115 102" marker-end="url(#ah2)"/>
+      <text class="small" x="130" y="246">closed loop: user's EEG/EMG response feeds back into stimulation</text>
+      <text class="small" x="20" y="285">Planned system. High-level architecture only (lab IP restrictions apply).</text>
+    </svg></div><figcaption>The planned system, with the SNN running on a neuromorphic processor on the wearable.</figcaption></figure>
+
+    <p class="callout">This is active lab research, so I can only share a high-level view of the design here. I'm happy to go into more detail in an interview.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site">
+  <div class="wrap">
+    <div>&copy; 2026 Pranava Karthekeyan Ponvinayagan &middot; Electrical Engineering @ Georgia Tech</div>
+    <div>
+      <a href="mailto:pponvinayagan3@gatech.edu">Email</a>
+      <a href="https://www.linkedin.com/in/pranava-ponvinayagan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/PranavaKP30" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
