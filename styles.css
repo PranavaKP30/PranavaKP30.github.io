@@ -200,3 +200,9 @@ footer.site a:hover { color: var(--accent); }
 .t1tag { background: color-mix(in srgb, #9a7b4f 15%, transparent); color: #9a7b4f; }
 .t2tag { background: var(--accent-soft); color: var(--accent); }
 @media (prefers-color-scheme: dark) { .sem li.t1 { border-left-color: #cdb48a; } .t1tag { color: #cdb48a; } .sem li.t2 { border-left-color: var(--accent); } .t2tag { color: var(--accent); } }
+
+/* 2x2 grid when there are exactly 4 project cards */
+.cards:has(> .card:nth-child(4):last-child) { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 760px) {
+  .cards:has(> .card:nth-child(4):last-child) { grid-template-columns: 1fr; }
+}
