@@ -9,6 +9,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../styles.css">
+<script>
+  function hideImg(img) {
+    var fig = img.closest('figure');
+    var pair = img.closest('.pair');
+    fig.remove();
+    if (pair && !pair.querySelector('figure')) pair.remove();
+  }
+</script>
 </head>
 <body>
 <header class="site">
@@ -37,14 +45,20 @@
     <p class="meta">Research Intern &middot; April to May 2026 &middot; Real-time C++, device drivers, serial and TCP protocols</p>
     <p class="lead">Two real-time C++ modules for RTXI on Xenomai Linux that replaced a non-real-time setup with programmatic TMS control and multichannel EMG acquisition for live human motor-evoked potential (MEP) experiments.</p>
 
+    <div class="pair" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:28px 0">
+      <figure style="margin:0"><div class="frame" style="padding:8px"><img src="../assets/bistim-device.jpeg" alt="Magstim BiStim2 TMS stimulator" loading="lazy" style="width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:6px" onerror="hideImg(this)"></div><figcaption>Magstim BiStim&sup2; TMS stimulator.</figcaption></figure>
+      <figure style="margin:0"><div class="frame" style="padding:8px"><img src="../assets/trigno-device.jpeg" alt="Delsys Trigno wireless EMG system" loading="lazy" style="width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:6px" onerror="hideImg(this)"></div><figcaption>Delsys Trigno wireless EMG system.</figcaption></figure>
+    </div>
+
     <h2>The Problem</h2>
     <p>MEP experiments pair a TMS pulse to the motor cortex with a recording of the muscle's response, so stimulation and recording have to line up precisely. The lab's previous setup wasn't real-time: TMS couldn't be controlled reliably from code, and EMG data couldn't be streamed into the experiment without lag. That made precise, repeatable experiments difficult and ruled out anything closed-loop.</p>
 
     <h2>The Solution</h2>
     <p>I built two separate RTXI modules, one for each device, so they could be developed, tested, and reused independently.</p>
 
+    <figure><div class="frame"><img src="../assets/tms-emg-gui.jpeg" alt="BiStimComm and TrignoStream module GUIs in RTXI" loading="lazy" onerror="hideImg(this)"></div><figcaption>The BiStimComm and TrignoStream modules running in RTXI.</figcaption></figure>
+
     <h3>1. BiStimComm: TMS control driver</h3>
-    <div class="todo">EDIT: add a screenshot of the BiStimComm module GUI here (save as ../assets/bistim-gui.png).</div>
     <p>A serial communication driver for the Magstim BiStim&sup2; paired-pulse TMS stimulator.</p>
     <ul>
       <li><b>State-machine architecture:</b> each command moves through defined states, so the driver always knows what the device is doing and never sends a command out of order.</li>
@@ -54,7 +68,6 @@
     <figure><div class="frame"><svg class="diagram" viewBox="0 0 760 195" role="img" aria-label="BiStim serial driver architecture" xmlns="http://www.w3.org/2000/svg" style="color:var(--muted)"><defs><marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor" style="color:var(--muted)"/></marker></defs><rect class="box" x="20" y="30" width="130" height="62" rx="8"/><text x="85.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">RTXI trigger</text><text class="small" x="85.0" y="73.0" text-anchor="middle">real-time event</text><line class="line" x1="150" y1="61" x2="167" y2="61" marker-end="url(#ahb)"/><rect class="hl" x="167" y="30" width="130" height="62" rx="8"/><text x="232.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">State machine</text><text class="small" x="232.0" y="73.0" text-anchor="middle">command sequencing</text><line class="line" x1="297" y1="61" x2="314" y2="61" marker-end="url(#ahb)"/><rect class="hl" x="314" y="30" width="130" height="62" rx="8"/><text x="379.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Packet builder</text><text class="small" x="379.0" y="73.0" text-anchor="middle">checksummed</text><line class="line" x1="444" y1="61" x2="461" y2="61" marker-end="url(#ahb)"/><rect class="box" x="461" y="30" width="130" height="62" rx="8"/><text x="526.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Serial port</text><text class="small" x="526.0" y="73.0" text-anchor="middle">host to device</text><line class="line" x1="591" y1="61" x2="608" y2="61" marker-end="url(#ahb)"/><rect class="box" x="608" y="30" width="130" height="62" rx="8"/><text x="673.0" y="55.0" text-anchor="middle" font-size="14" font-weight="600">Magstim BiStim²</text><text class="small" x="673.0" y="73.0" text-anchor="middle">paired-pulse TMS</text><path class="line" d="M673 92 L673 124 L232 124 L232 92" marker-end="url(#ahb)"/><text class="small" x="300" y="142">device response + checksum verified before the next command</text><text class="small" x="20" y="180">Validated on the bench with loopback testing before connecting to the TMS device.</text></svg></div><figcaption>BiStimComm command and response path.</figcaption></figure>
 
     <h3>2. TrignoStream: EMG acquisition module</h3>
-    <div class="todo">EDIT: add a screenshot of the TrignoStream module GUI here (save as ../assets/trigno-gui.png).</div>
     <p>A 16-channel acquisition module for the Delsys Trigno wireless EMG system.</p>
     <ul>
       <li><b>Dual-socket TCP:</b> separate command and data connections to the Trigno base station.</li>

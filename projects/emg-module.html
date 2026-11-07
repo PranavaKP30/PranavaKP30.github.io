@@ -37,7 +37,7 @@
     <p class="meta">Personal project &middot; Fall 2026 &middot; Analog front end, PCB design, ESP32 firmware</p>
     <p class="lead">A compact, standalone board that picks up muscle signals from surface electrodes, cleans them up through an analog front end, and streams them live to a computer through an ESP32.</p>
 
-    <figure><div class="frame"><img src="../assets/emg-board.png" alt="Photo of the assembled EMG acquisition module" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'todo',textContent:'Add image: ../assets/emg-board.jpg'}))"></div><figcaption>The assembled EMG module.</figcaption></figure>
+    <figure><div class="frame"><img src="../assets/emg-board.png" alt="3D render of the EMG acquisition module" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'todo',textContent:'Add image: ../assets/emg-board.png'}))"></div><figcaption>3D render of the EMG module.</figcaption></figure>
 
     <h2>The Problem</h2>
     <p>When a muscle contracts, it produces an electrical signal you can measure on the skin, but that signal is only a few millivolts at most and sits under noise from power lines, movement, and nearby electronics. Lab EMG systems handle this well, but they're expensive and tied to a desk. I wanted to find out what it takes to build a small board that captures a clean muscle signal and streams it in real time, and to use it as a hands-on way to learn analog front-end design.</p>
@@ -58,8 +58,8 @@
 
     <figure><div class="frame"><img src="../assets/emg-pcb.png" alt="PCB layout of the EMG acquisition module" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'todo',textContent:'Add image: ../assets/emg-pcb.png'}))"></div><figcaption>PCB layout.</figcaption></figure>
 
-    <h2>The Outcome</h2>
-    <div class="todo">EDIT before the Showcase: describe your results. Can you see clear bursts when you flex? What does the signal look like at rest vs. contraction? Add a screenshot of the live plot and a photo of your test setup.</div>
+    <h2>Status and Takeaways</h2>
+    <p>The board is designed and assembled, and testing is next. Once it's done, I'll update this page with live recordings of the signal at rest and during contraction.</p>
     <p>This board is a single-channel version of the 16-channel EEG/EMG acquisition modules I'm designing at the Neuroloops Lab. Working through each stage here, especially input protection, stimulation blanking, and keeping analog and digital separate, gave me a much better understanding of the choices that went into that larger system.</p>
 
     <h2>What I'd Do Next</h2>
